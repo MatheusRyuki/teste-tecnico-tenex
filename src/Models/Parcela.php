@@ -2,6 +2,21 @@
 
 namespace App\Models;
 
+use OpenApi\Annotations as OA;
+
+/**
+ * @OA\Schema(
+ *     schema="Parcela",
+ *     type="object",
+ *     title="Parcela",
+ *     properties={
+ *         @OA\Property(property="data_vencimento", type="string", format="date"),
+ *         @OA\Property(property="valor", type="number", format="float"),
+ *         @OA\Property(property="numero", type="integer"),
+ *         @OA\Property(property="entrada", type="boolean")
+ *     }
+ * )
+ */
 class Parcela {
     public $data_vencimento;
     public $valor;

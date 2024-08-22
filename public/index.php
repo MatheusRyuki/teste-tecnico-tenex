@@ -9,6 +9,7 @@ use App\Application\Settings\SettingsInterface;
 use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
+use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -16,7 +17,7 @@ require __DIR__ . '/../vendor/autoload.php';
 $containerBuilder = new ContainerBuilder();
 
 if (false) { // Should be set to true in production
-	$containerBuilder->enableCompilation(__DIR__ . '/../var/cache');
+    $containerBuilder->enableCompilation(__DIR__ . '/../var/cache');
 }
 
 // Set up settings
@@ -44,8 +45,16 @@ $middleware = require __DIR__ . '/../app/middleware.php';
 $middleware($app);
 
 // Register routes
-$routes = require __DIR__ . '/../app/routes.php';
-$routes($app);
+$app->options('/{routes:.*}', function (Request $request, Response $response) {
+    return $response;
+});
+
+$app->get('/', function (Request $request, Response $response) {
+    $response->getBody()->write('Hello world!');
+    return $response;
+});
+
+$app->group('/carne', require __DIR__ . '/../app/routes/carne.php');
 
 /** @var SettingsInterface $settings */
 $settings = $container->get(SettingsInterface::class);

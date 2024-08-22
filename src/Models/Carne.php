@@ -1,10 +1,26 @@
 <?php
 namespace App\Models;
 
+use OpenApi\Annotations as OA;
 use Brick\Money\Money;
 use Brick\Money\Currency;
 use Brick\Math\RoundingMode;
 
+/**
+ * @OA\Schema(
+ *     schema="Carne",
+ *     type="object",
+ *     title="Carne",
+ *     properties={
+ *         @OA\Property(property="valor_total", type="number", format="float"),
+ *         @OA\Property(property="qtd_parcelas", type="integer"),
+ *         @OA\Property(property="data_primeiro_vencimento", type="string", format="date"),
+ *         @OA\Property(property="periodicidade", type="string"),
+ *         @OA\Property(property="valor_entrada", type="number", format="float"),
+ *         @OA\Property(property="parcelas", type="array", @OA\Items(ref="#/components/schemas/Parcela"))
+ *     }
+ * )
+ */
 class Carne {
     public $valor_total;
     public $qtd_parcelas;
