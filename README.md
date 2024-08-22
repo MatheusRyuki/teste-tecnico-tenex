@@ -1,42 +1,126 @@
-# Slim Framework 4 Skeleton Application
+# API de Parcelas de Carnê
 
-[![Coverage Status](https://coveralls.io/repos/github/slimphp/Slim-Skeleton/badge.svg?branch=master)](https://coveralls.io/github/slimphp/Slim-Skeleton?branch=master)
+Este projeto é uma API para gerenciamento de parcelas de carnê, desenvolvida em PHP utilizando o framework Slim e documentada com Swagger.
 
-Use this skeleton application to quickly setup and start working on a new Slim Framework 4 application. This application uses the latest Slim 4 with Slim PSR-7 implementation and PHP-DI container implementation. It also uses the Monolog logger.
+## Pré-requisitos
 
-This skeleton application was built for Composer. This makes setting up a new Slim Framework application quick and easy.
+Antes de começar, certifique-se de ter os seguintes softwares instalados em sua máquina:
 
-## Install the Application
+- Docker
+- Docker Compose
 
-Run this command from the directory in which you want to install your new Slim Framework application. You will require PHP 7.4 or newer.
+## Instalação
 
-```bash
-composer create-project slim/slim-skeleton [my-app-name]
-```
+Siga os passos abaixo para configurar e iniciar o ambiente de desenvolvimento:
 
-Replace `[my-app-name]` with the desired directory name for your new application. You'll want to:
+1. **Clone o repositório**:
 
-* Point your virtual host document root to your new application's `public/` directory.
-* Ensure `logs/` is web writable.
+    ```bash
+    git clone https://github.com/seu-usuario/seu-repositorio.git
+    cd seu-repositorio
+    ```
 
-To run the application in development, you can run these commands 
+2. **Crie e inicie os contêineres Docker**:
 
-```bash
-cd [my-app-name]
-composer start
-```
+    ```bash
+    docker-compose up --build
+    ```
 
-Or you can use `docker-compose` to run the app with `docker`, so you can run these commands:
-```bash
-cd [my-app-name]
-docker-compose up -d
-```
-After that, open `http://localhost:8080` in your browser.
+    Este comando irá construir as imagens Docker e iniciar os contêineres definidos no arquivo `docker-compose.yml`.
 
-Run this command in the application directory to run the test suite
+3. **Acesse a aplicação**:
 
-```bash
-composer test
-```
+    A aplicação está disponível na url `http://localhost:8080`.
 
-That's it! Now go build something cool.
+## Uso
+
+### Endpoints da API
+
+A API possui os seguintes endpoints:
+
+1. **Criar um novo carnê**:
+
+    - **URL**: `/carne`
+    - **Método**: `POST`
+    - **Descrição**: Cria um novo carnê com as informações fornecidas.
+    - **Exemplo de corpo da requisição**:
+        ```json
+        {
+            "valor_total": 1000.00,
+            "qtd_parcelas": 12,
+            "data_primeiro_vencimento": "2024-08-01",
+            "periodicidade": "mensal",
+            "valor_entrada": 100.00
+        }
+        ```
+    - **Resposta de sucesso**:
+        ```json
+        {
+            "valor_total": {
+                "amount": 1000.00,
+                "currency": "BRL"
+            },
+            "qtd_parcelas": 12,
+            "data_primeiro_vencimento": "2024-08-01",
+            "periodicidade": "mensal",
+            "valor_entrada": {
+                "amount": 100.00,
+                "currency": "BRL"
+            },
+            "parcelas": [
+                {
+                    "data_vencimento": "2024-09-01",
+                    "valor": 75.00,
+                    "numero": 1,
+                    "entrada": false
+                },
+                ...
+            ]
+        }
+        ```
+
+2. **Obter detalhes de um carnê pelo ID**:
+
+    - **URL**: `/carne/{id}`
+    - **Método**: `GET`
+    - **Descrição**: Obtém os detalhes de um carnê específico pelo ID.
+    - **Resposta de sucesso**:
+        ```json
+        {
+            "id": 1,
+            "valor_total": 100.00,
+            "qtd_parcelas": 12,
+            "data_primeiro_vencimento": "2024-08-01",
+            "periodicidade": "mensal",
+            "valor_entrada": 0,
+            "parcelas": [
+                {
+                    "data_vencimento": "2024-09-01",
+                    "valor": 8.33,
+                    "numero": 1,
+                    "entrada": false
+                },
+                ...
+            ]
+        }
+        ```
+
+### Documentação da API
+
+A documentação da API está disponível no Swagger. Para acessá-la, abra o navegador e vá para `http://localhost:8080/swagger-ui/index.html`. Você conseguirá testar a API por lá de forma direta
+
+## Testes
+
+Para executar os testes unitários, siga os passos abaixo:
+
+1. **Acesse o contêiner do aplicativo**:
+
+    ```bash
+    docker-compose exec web bash
+    ```
+
+2. **Execute os testes**:
+
+    ```bash
+    ./vendor/bin/phpunit
+    ```
