@@ -12,7 +12,12 @@ require __DIR__ . '/../vendor/autoload.php';
  * )
  */
 
- $paths = [realpath(__DIR__ . '/../src'), realpath(__DIR__ . '/../app')];
- $openapi = \OpenApi\Generator::scan($paths);
- header('Content-Type: application/json');
- echo $openapi->toJson();
+$paths = [
+    realpath(__DIR__ . '/../app/routes'),
+    realpath(__DIR__ . '/../src'),
+
+];
+
+$openapi = \OpenApi\Generator::scan($paths);
+header('Content-Type: application/json');
+echo $openapi->toJson();
