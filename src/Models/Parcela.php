@@ -9,12 +9,11 @@ use OpenApi\Annotations as OA;
  *     schema="Parcela",
  *     type="object",
  *     title="Parcela",
- *     properties={
- *         @OA\Property(property="data_vencimento", type="string", format="date"),
- *         @OA\Property(property="valor", type="number", format="float"),
- *         @OA\Property(property="numero", type="integer"),
- *         @OA\Property(property="entrada", type="boolean")
- *     }
+ *     description="Modelo que representa uma parcela do carnê",
+ *     @OA\Property(property="data_vencimento", type="string", format="date", description="Data de vencimento da parcela"),
+ *     @OA\Property(property="valor", type="number", format="float", description="Valor da parcela"),
+ *     @OA\Property(property="numero", type="integer", description="Número da parcela"),
+ *     @OA\Property(property="entrada", type="boolean", description="Indica se é a parcela de entrada")
  * )
  */
 class Parcela {

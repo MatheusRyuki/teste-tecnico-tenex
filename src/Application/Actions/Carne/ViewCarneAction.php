@@ -11,16 +11,26 @@ use OpenApi\Annotations as OA;
  * @OA\Get(
  *     path="/carne/{id}",
  *     summary="Obtém um carnê pelo ID",
+ *     description="Endpoint para obter os detalhes de um carnê específico pelo ID.",
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
  *         required=true,
- *         @OA\Schema(type="integer")
+ *         description="ID do carnê",
+ *         @OA\Schema(type="integer", example=1)
  *     ),
  *     @OA\Response(
  *         response=200,
  *         description="Detalhes do carnê",
  *         @OA\JsonContent(ref="#/components/schemas/Carne")
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Carnê não encontrado",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="error", type="string", example="Carnê não encontrado")
+ *         )
  *     )
  * )
  */

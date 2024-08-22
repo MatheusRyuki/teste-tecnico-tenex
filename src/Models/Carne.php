@@ -11,14 +11,13 @@ use Brick\Math\RoundingMode;
  *     schema="Carne",
  *     type="object",
  *     title="Carne",
- *     properties={
- *         @OA\Property(property="valor_total", type="number", format="float"),
- *         @OA\Property(property="qtd_parcelas", type="integer"),
- *         @OA\Property(property="data_primeiro_vencimento", type="string", format="date"),
- *         @OA\Property(property="periodicidade", type="string"),
- *         @OA\Property(property="valor_entrada", type="number", format="float"),
- *         @OA\Property(property="parcelas", type="array", @OA\Items(ref="#/components/schemas/Parcela"))
- *     }
+ *     description="Modelo que representa um carnê de pagamento",
+ *     @OA\Property(property="valor_total", type="number", format="float", description="Valor total do carnê"),
+ *     @OA\Property(property="qtd_parcelas", type="integer", description="Quantidade de parcelas"),
+ *     @OA\Property(property="data_primeiro_vencimento", type="string", format="date", description="Data do primeiro vencimento"),
+ *     @OA\Property(property="periodicidade", type="string", description="Periodicidade das parcelas"),
+ *     @OA\Property(property="valor_entrada", type="number", format="float", description="Valor da entrada"),
+ *     @OA\Property(property="parcelas", type="array", @OA\Items(ref="#/components/schemas/Parcela"), description="Lista de parcelas")
  * )
  */
 class Carne {
