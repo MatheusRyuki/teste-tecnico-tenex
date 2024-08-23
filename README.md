@@ -16,8 +16,8 @@ Siga os passos abaixo para configurar e iniciar o ambiente de desenvolvimento:
 1. **Clone o repositório**:
 
     ```bash
-    git clone https://github.com/seu-usuario/seu-repositorio.git
-    cd seu-repositorio
+    git clone https://github.com/MatheusRyuki/teste-tecnico-tenex
+    cd teste-tecnico-tenex
     ```
 
 2. **Crie e inicie os contêineres Docker**:
